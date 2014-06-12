@@ -6,13 +6,19 @@ $(document).ready( function () {
   var displayVenues = function (data, status, xhr) {
     console.log('getting to display venues');
     var coolPlace = data.response.groups[0].items[0].venue;
-    $('<p>', {
-      text: coolPlace.name
-    }).prependTo('body');
     var photoTrace = coolPlace.photos.groups[0].items[0];
     var photoUrl = photoTrace.prefix + 'width960/' + photoTrace.suffix.slice(1);
     $('<img></img>', {
       src: photoUrl
+    }).appendTo('body');
+    $('<p>', {
+      text: coolPlace.name
+    }).prependTo('body');
+    $('<p>', {
+      text: coolPlace.name
+    }).prependTo('body');
+    $('<p>', {
+      text: coolPlace.location.address
     }).prependTo('body');
   };
 
