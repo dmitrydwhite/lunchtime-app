@@ -1,6 +1,6 @@
 $(document).ready( function () {
   'use strict';
-  
+
    var requestFromFourSquare = function() {
     var data = {
       client_id: 'BBXQZQD1XYLBS1MI3UNLIQMKFMEGYSBTYAZVYEMPRKPAPCNO',
@@ -24,6 +24,33 @@ $(document).ready( function () {
       });
   };
 
+  var getLocation = function () {
+    function requestLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+          return revealPosition(position);
+        });
+      } else {
+        $('<p>', {text: 'Geo-Location does not appear ' +
+          'to be supported at this time'}).prependTo('body');
+      }
+    }
+
+    function revealPosition(position) {
+      var positionString = '';
+      var latString = position.coords.latitude.toString().slice(0,6);
+      var longString = position.coords.longitude.toString().slice(0,7);
+      positionString = latString + ',' + longString;
+      return positionString;
+    }
+
+    requestLocation();
+  };
+
+  var findLunch = function () {
+    getLocation();
+    requestFromFourSquare();
+  };
 
 
 
