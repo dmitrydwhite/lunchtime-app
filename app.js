@@ -1,13 +1,23 @@
 $(document).ready( function () {
   'use strict';
 
-  function initialize(obj) {
-    var mapOptions = {
-      center: new google.maps.LatLng(obj.lat, obj.lon),
-      zoom: 18
-    };
-    var map = new google.maps.Map(document.getElementById("map-canvas"),
-        mapOptions);
+ function initialize(obj) {
+      var mapOptions = {
+        center: new google.maps.LatLng(obj.lat, obj.lon),
+        zoom: 18
+      };
+      var map = new google.maps.Map(document.getElementById("map-canvas"),
+          mapOptions);
+
+      var marker = new google.maps.Marker({
+    		position: mapOptions.center,
+    		title:"Hello World!"
+
+			});
+
+			// To add the marker to the map, call setMap();
+		marker.setMap(map);
+
   }
 
   var getRandomVenue = function (max) {
