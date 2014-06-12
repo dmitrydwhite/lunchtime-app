@@ -1,19 +1,22 @@
 $(document).ready( function () {
   'use strict';
 
- function initialize(obj) {
-      var mapOptions = {
-        center: new google.maps.LatLng(obj.lat, obj.lon),
-        zoom: 18
-      };
-      var map = new google.maps.Map(document.getElementById("map-canvas"),
-          mapOptions);
-    }
+  function initialize(obj) {
+    var mapOptions = {
+      center: new google.maps.LatLng(obj.lat, obj.lon),
+      zoom: 18
+    };
+    var map = new google.maps.Map(document.getElementById("map-canvas"),
+        mapOptions);
+  }
 
+  var getRandomVenue = function (max) {
+    return Math.floor(Math.random() * (max + 1));
+  };
 
   var displayVenues = function (data, status, xhr) {
     console.log('getting to display venues');
-    var coolPlace = data.response.groups[0].items[0].venue;
+    var coolPlace = data.response.groups[0].items[getRandomVenue(30)].venue;
     var photoTrace = coolPlace.photos.groups[0].items[0];
     var photoUrl = photoTrace.prefix +
       'width484/' + photoTrace.suffix.slice(1);
@@ -45,7 +48,7 @@ $(document).ready( function () {
       ll: loc,
       // query: 'restaurant',
       section: 'food',
-      // limit: 1,
+      limit: 30,
       venuePhotos: 1,
       v: '20140612',
       format: 'json'
