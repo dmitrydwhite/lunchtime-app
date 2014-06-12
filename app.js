@@ -31,7 +31,7 @@ $(document).ready( function () {
     var photoTrace = coolPlace.photos.groups[0].items[0];
     var photoUrl = photoTrace.prefix +
       'width484/' + photoTrace.suffix.slice(1);
-    $('<div>', {'class': 'picture'}).prependTo('body');
+    $('<div>', {'class': 'picture'}).insertAfter('h1');
     $('<img></img>', {
       src: photoUrl
     }).appendTo('.picture');
