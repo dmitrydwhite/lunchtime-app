@@ -16,7 +16,8 @@ $(document).ready( function () {
 
   var displayVenues = function (data, status, xhr) {
     console.log('getting to display venues');
-    var coolPlace = data.response.groups[0].items[getRandomVenue(30)].venue;
+    var coolPlace = data.response.groups[0].
+      items[getRandomVenue(29)].venue;
     var photoTrace = coolPlace.photos.groups[0].items[0];
     var photoUrl = photoTrace.prefix +
       'width484/' + photoTrace.suffix.slice(1);
