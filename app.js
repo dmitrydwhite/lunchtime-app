@@ -15,10 +15,12 @@ $(document).ready( function () {
     console.log('getting to display venues');
     var coolPlace = data.response.groups[0].items[0].venue;
     var photoTrace = coolPlace.photos.groups[0].items[0];
-    var photoUrl = photoTrace.prefix + 'width484/' + photoTrace.suffix.slice(1);
+    var photoUrl = photoTrace.prefix +
+      'width484/' + photoTrace.suffix.slice(1);
+    $('<div>', {'class': 'picture'}).prependTo('body');
     $('<img></img>', {
       src: photoUrl
-    }).insertBefore('#map-canvas');
+    }).appendTo('.picture');
     $('<p>', {
       text: coolPlace.name
     }).insertBefore('#map-canvas');
