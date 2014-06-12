@@ -1,27 +1,31 @@
 $(document).ready( function () {
   'use strict';
 
+
+
   var displayVenues = function (data, status, xhr) {
     console.log('getting to display venues');
     var coolPlace = data.response.groups[0].items[0].venue;
     $('<p>', {
       text: coolPlace.name
     }).prependTo('body');
-    // $('<img>', {
-    //   src: data.response.groups[0].items[0].venue.groups[0].items[0]
-    // });
+    var photoTrace = coolPlace.photos.groups[0].items[0];
+    var photoUrl = photoTrace.prefix + 'width960/' + photoTrace.suffix.slice(1);
+    $('<img></img>', {
+      src: photoUrl
+    }).prependTo('body');
   };
 
-   var requestFromFourSquare = function(loc) {
+  var requestFromFourSquare = function(loc) {
     console.log('starting foursquare request');
     var data = {
       client_id: 'BBXQZQD1XYLBS1MI3UNLIQMKFMEGYSBTYAZVYEMPRKPAPCNO',
       client_secret: 'SCRYCL2WJIORP054NIIFFPQ0KTL4OMMHNN3TMRS32FDSX15P',
       ll: loc,
-      query: 'restaurant',
-      // section: 'food',
+      // query: 'restaurant',
+      section: 'food',
       // limit: 1,
-      venuePhoto: 1,
+      venuePhotos: 1,
       v: '20140612',
       format: 'json'
     };
@@ -35,7 +39,8 @@ $(document).ready( function () {
       }, function(xhr, status, error) {
 
       });
-    };
+  };
+
   var getLocation = function () {
     console.log('getting location');
     var requestLocation = function() {
