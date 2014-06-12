@@ -1,7 +1,15 @@
 $(document).ready( function () {
   'use strict';
 
-
+ function initialize(obj) {
+      var mapOptions = {
+        center: new google.maps.LatLng(obj.lat, obj.lon),
+        zoom: 18
+      };
+      var map = new google.maps.Map(document.getElementById("map-canvas"),
+          mapOptions);
+    }
+  
 
   var displayVenues = function (data, status, xhr) {
     console.log('getting to display venues');
@@ -20,6 +28,11 @@ $(document).ready( function () {
     $('<p>', {
       text: coolPlace.location.address
     }).prependTo('body');
+    var venueObj = {
+    	lat: coolPlace.location.lat,
+    	lon: coolPlace.location.lng
+    };
+    initialize(venueObj);
   };
 
   var requestFromFourSquare = function(loc) {
