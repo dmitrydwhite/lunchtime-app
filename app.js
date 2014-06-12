@@ -3,9 +3,13 @@ $(document).ready( function () {
 
   var displayVenues = function (data, status, xhr) {
     console.log('getting to display venues');
+    var coolPlace = data.response.groups[0].items[0].venue;
     $('<p>', {
-      text: data.response.groups[0].items[0].venue.name
+      text: coolPlace.name
     }).prependTo('body');
+    // $('<img>', {
+    //   src: data.response.groups[0].items[0].venue.groups[0].items[0]
+    // });
   };
 
    var requestFromFourSquare = function(loc) {
@@ -14,8 +18,9 @@ $(document).ready( function () {
       client_id: 'BBXQZQD1XYLBS1MI3UNLIQMKFMEGYSBTYAZVYEMPRKPAPCNO',
       client_secret: 'SCRYCL2WJIORP054NIIFFPQ0KTL4OMMHNN3TMRS32FDSX15P',
       ll: loc,
-      section: 'food',
-      limit: 1,
+      query: 'restaurant',
+      // section: 'food',
+      // limit: 1,
       venuePhoto: 1,
       v: '20140612',
       format: 'json'
