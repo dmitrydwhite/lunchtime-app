@@ -9,25 +9,25 @@ $(document).ready( function () {
       var map = new google.maps.Map(document.getElementById("map-canvas"),
           mapOptions);
     }
-  
+
 
   var displayVenues = function (data, status, xhr) {
     console.log('getting to display venues');
     var coolPlace = data.response.groups[0].items[0].venue;
     var photoTrace = coolPlace.photos.groups[0].items[0];
-    var photoUrl = photoTrace.prefix + 'width960/' + photoTrace.suffix.slice(1);
+    var photoUrl = photoTrace.prefix + 'width484/' + photoTrace.suffix.slice(1);
     $('<img></img>', {
       src: photoUrl
     }).appendTo('body');
     $('<p>', {
       text: coolPlace.name
-    }).prependTo('body');
-    $('<p>', {
-      text: coolPlace.name
-    }).prependTo('body');
+    }).appendTo('body');
     $('<p>', {
       text: coolPlace.location.address
-    }).prependTo('body');
+    }).appendTo('body');
+    $('<p>', {
+      text: coolPlace.location.crossStreet
+    }).appendTo('body');
     var venueObj = {
     	lat: coolPlace.location.lat,
     	lon: coolPlace.location.lng
