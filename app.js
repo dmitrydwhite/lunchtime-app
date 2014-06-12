@@ -18,16 +18,16 @@ $(document).ready( function () {
     var photoUrl = photoTrace.prefix + 'width484/' + photoTrace.suffix.slice(1);
     $('<img></img>', {
       src: photoUrl
-    }).appendTo('body');
+    }).insertBefore('#map-canvas');
     $('<p>', {
       text: coolPlace.name
-    }).appendTo('body');
+    }).insertBefore('#map-canvas');
     $('<p>', {
       text: coolPlace.location.address
-    }).appendTo('body');
+    }).insertBefore('#map-canvas');
     $('<p>', {
       text: coolPlace.location.crossStreet
-    }).appendTo('body');
+    }).insertBefore('#map-canvas');
     var venueObj = {
     	lat: coolPlace.location.lat,
     	lon: coolPlace.location.lng
