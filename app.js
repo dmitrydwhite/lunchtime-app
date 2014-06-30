@@ -1,5 +1,6 @@
-$(document).ready( function () {
   'use strict';
+
+$(document).ready( function () {
 
  function initialize(obj) {
       var mapOptions = {
@@ -15,7 +16,6 @@ $(document).ready( function () {
 
 			});
 
-			// To add the marker to the map, call setMap();
 		marker.setMap(map);
 
   }
@@ -25,7 +25,6 @@ $(document).ready( function () {
   };
 
   var displayVenues = function (data, status, xhr) {
-    console.log('getting to display venues');
     var coolPlace = data.response.groups[0].
       items[getRandomVenue(29)].venue;
     var photoTrace = coolPlace.photos.groups[0].items[0];
@@ -37,7 +36,7 @@ $(document).ready( function () {
     }).appendTo('.picture');
     $('<p>', {
       text: coolPlace.name
-    }).insertBefore('#map-canvas');
+    }).insertAfter('.picture');
     $('<p>', {
       text: coolPlace.location.address
     }).insertBefore('#map-canvas');
@@ -77,9 +76,15 @@ $(document).ready( function () {
   };
 
   var getLocation = function () {
-    console.log('getting location');
+    function revealPosition(position) {
+      var positionString = '';
+      var latString = position.coords.latitude.toString().slice(0,6);
+      var longString = position.coords.longitude.toString().slice(0,7);
+      positionString = latString + ',' + longString;
+      requestFromFourSquare(positionString);
+    }
+
     var requestLocation = function() {
-      console.log('requesting location');
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
           revealPosition(position);
@@ -91,24 +96,8 @@ $(document).ready( function () {
       }
     };
 
-
-    function revealPosition(position) {
-      var positionString = '';
-      var latString = position.coords.latitude.toString().slice(0,6);
-      var longString = position.coords.longitude.toString().slice(0,7);
-      positionString = latString + ',' + longString;
-      requestFromFourSquare(positionString);
-    }
-
     requestLocation();
   };
 
-  var findLunch = function () {
-    getLocation();
-  };
-
-
-
-
-  findLunch();
+  getLocation();
 });
