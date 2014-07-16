@@ -36,7 +36,7 @@ $(document).ready( function () {
     }).appendTo('.picture');
     $('<p>', {
       text: coolPlace.name
-    }).insertAfter('.picture');
+    }).insertBefore('.picture');
     $('<p>', {
       text: coolPlace.location.address
     }).insertBefore('#map-canvas');
