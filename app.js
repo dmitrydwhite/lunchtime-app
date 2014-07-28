@@ -39,6 +39,7 @@ $(document).ready( function () {
     var photoTrace = coolPlace.photos.groups[0].items[0];
     var photoUrl = photoTrace.prefix +
       'width484/' + photoTrace.suffix.slice(1);
+    $('.data_view').empty();
     $('<div>', {'class': 'picture'}).appendTo('.data_view');
     $('<img></img>', {
       src: photoUrl
@@ -111,20 +112,24 @@ $(document).ready( function () {
 
     var requestLocation = function() {
       console.log('in geolocation');
-      window.setTimeout(function() {
+      var timeoutID = window.setTimeout(function() {
         console.log('in waiting');
         $('<p>', {
           text: 'Using SuperSpy technology to determine your ' +
             'location and level of Hungriness.'
         }).appendTo('.data_view');
-      }, 2);
+      }, 2000);
       navigator.geolocation.getCurrentPosition(function (position) {
-        revealPosition(position);
-      }, function() {
+        revealPosition(position, timeoutID);
+      }, function(err) {
         console.log('no geo location');
+        window.clearTimeout(timeoutID);
         $('.data_view').empty();
         $('<p>', {text: 'Geo-Location does not appear ' +
-          'to be supported at this time'}).appendTo('.data_view');
+          'to be supported at this time. Try adjusting your ' +
+          'device\'s location settings or reloading your browser.'
+        }).appendTo('.data_view');
+        $('<p>', {text: 'Error: ' + err }).appendTo('.data_view');
       });
 
 
