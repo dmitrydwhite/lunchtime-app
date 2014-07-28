@@ -46,7 +46,8 @@ $(document).ready( function () {
     $('<p>', {
       text: coolPlace.name
     }).insertBefore('.picture');
-    $('<button>', {
+    $('<div>', {
+      'class': 'reset_button',
       text: 'I\'ve Been Here, Find Another One'
     }).insertBefore('.picture').click(function() {
       if (beenThere.length === (numberReceived-1)) {

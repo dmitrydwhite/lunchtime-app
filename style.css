@@ -17,9 +17,25 @@ body {
   width: 484px;
   margin-right: auto;
   margin-left: auto;
-  
+
  }
 
  p, h1 {
   text-align: center;
+ }
+
+.reset_button {
+  cursor: pointer;
+  background-color: #9C8CB5;
+  color: #292038;
+  text-align: center;
+  font-family: Arial;
+  border: 1px solid #9b8c79;
+  box-shadow: 2px 2px 2px #292038;
+  width: 30%;
+  padding: 15px;
+  margin-top: 3px;
+  margin-bottom: 12px;
+  margin-right: auto;
+  margin-left: auto;
  }
