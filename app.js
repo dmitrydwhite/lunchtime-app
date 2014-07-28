@@ -111,9 +111,7 @@ $(document).ready( function () {
     }
 
     var requestLocation = function() {
-      console.log('in geolocation');
       var timeoutID = window.setTimeout(function() {
-        console.log('in waiting');
         $('<p>', {
           text: 'Using SuperSpy technology to determine your ' +
             'location and level of Hungriness.'
@@ -122,7 +120,6 @@ $(document).ready( function () {
       navigator.geolocation.getCurrentPosition(function (position) {
         revealPosition(position, timeoutID);
       }, function(err) {
-        console.log('no geo location');
         window.clearTimeout(timeoutID);
         $('.data_view').empty();
         $('<p>', {text: 'Geo-Location does not appear ' +
