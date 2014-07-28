@@ -74,6 +74,9 @@ $(document).ready( function () {
     	lon: coolPlace.location.lng
     };
     initialize(venueObj);
+    $('<p>', {
+      text: 'Powered by FourSquare',
+      'class': 'attribution' }).insertAfter('#map-canvas');
   };
 
   var requestFromFourSquare = function(loc) {

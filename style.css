@@ -20,6 +20,13 @@ body {
 	margin-bottom: 10px;
 }
 
+.attribution {
+  color: black;
+  font-size: 14px;
+  font-family: Times;
+  margin-bottom: 20px;
+}
+
 .picture {
   width: 484px;
   margin-right: auto;
