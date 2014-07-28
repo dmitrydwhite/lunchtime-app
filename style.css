@@ -46,3 +46,9 @@ body {
   margin-right: auto;
   margin-left: auto;
  }
+
+@media only screen and (max-width: 620px) and (min-device-width: 320px) {
+  .container {
+    width: 100%;
+  }
+}
