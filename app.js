@@ -100,7 +100,9 @@ $(document).ready( function () {
   };
 
   var getLocation = function () {
-    function revealPosition(position) {
+    function revealPosition(position, timeout) {
+      window.clearTimeout(timeout);
+      $('data_view').empty();
       var latString = position.coords.latitude.toString().slice(0,6);
       var longString = position.coords.longitude.toString().slice(0,7);
       positionString = latString + ',' + longString;
@@ -108,15 +110,24 @@ $(document).ready( function () {
     }
 
     var requestLocation = function() {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function (position) {
-          revealPosition(position);
-        });
-        }
-       else {
+      console.log('in geolocation');
+      window.setTimeout(function() {
+        console.log('in waiting');
+        $('<p>', {
+          text: 'Using SuperSpy technology to determine your ' +
+            'location and level of Hungriness.'
+        }).appendTo('.data_view');
+      }, 2);
+      navigator.geolocation.getCurrentPosition(function (position) {
+        revealPosition(position);
+      }, function() {
+        console.log('no geo location');
+        $('.data_view').empty();
         $('<p>', {text: 'Geo-Location does not appear ' +
-          'to be supported at this time'}).prependTo('body');
-      }
+          'to be supported at this time'}).appendTo('.data_view');
+      });
+
+
     };
 
     requestLocation();

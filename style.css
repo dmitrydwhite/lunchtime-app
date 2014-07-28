@@ -1,7 +1,14 @@
 body {
+  background-color: #130E19;
+}
+
+.container {
 	font-family:'Rock Salt', cursive;
 	background-color: #e8dbcb;
 	color: #217ae8;
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 #map-canvas {
