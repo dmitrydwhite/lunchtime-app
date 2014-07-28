@@ -1,4 +1,4 @@
-  'use strict';
+'use strict';
 
 $(document).ready( function () {
 
@@ -21,28 +21,52 @@ $(document).ready( function () {
   }
 
   var getRandomVenue = function (max) {
-    return Math.floor(Math.random() * (max + 1));
+    var random = Math.floor(Math.random() * (max - 1));
+    var truePlaces = beenThere.indexOf(random);
+    if (truePlaces === -1) {
+      beenThere.push(random);
+      return random;
+    } else {
+      return getRandomVenue(max);
+    }
   };
 
   var displayVenues = function (data, status, xhr) {
+    var numberReceived = data.response.groups[0].items.length;
+    var nextPlace = getRandomVenue(numberReceived);
     var coolPlace = data.response.groups[0].
-      items[getRandomVenue(29)].venue;
+      items[nextPlace].venue;
     var photoTrace = coolPlace.photos.groups[0].items[0];
     var photoUrl = photoTrace.prefix +
       'width484/' + photoTrace.suffix.slice(1);
-    $('<div>', {'class': 'picture'}).insertAfter('h1');
+    $('<div>', {'class': 'picture'}).appendTo('.data_view');
     $('<img></img>', {
       src: photoUrl
     }).appendTo('.picture');
     $('<p>', {
       text: coolPlace.name
     }).insertBefore('.picture');
+    $('<button>', {
+      text: 'I\'ve Been Here, Find Another One'
+    }).insertBefore('.picture').click(function() {
+      if (beenThere.length === (numberReceived-1)) {
+        beenThere = [];
+        $('.data_view').empty();
+        $('#map-canvas').empty();
+        requestFromFourSquare(positionString);
+      } else {
+        $('.data_view').empty();
+        $('#map-canvas').empty();
+        displayVenues(data, status, xhr);
+      }
+    });
     $('<p>', {
+      'class': 'address',
       text: coolPlace.location.address
-    }).insertBefore('#map-canvas');
+    }).insertAfter('.picture');
     $('<p>', {
       text: coolPlace.location.crossStreet
-    }).insertBefore('#map-canvas');
+    }).insertAfter('.address');
     var venueObj = {
     	lat: coolPlace.location.lat,
     	lon: coolPlace.location.lng
@@ -51,12 +75,11 @@ $(document).ready( function () {
   };
 
   var requestFromFourSquare = function(loc) {
-    console.log('starting foursquare request');
     var data = {
       client_id: 'BBXQZQD1XYLBS1MI3UNLIQMKFMEGYSBTYAZVYEMPRKPAPCNO',
       client_secret: 'SCRYCL2WJIORP054NIIFFPQ0KTL4OMMHNN3TMRS32FDSX15P',
       ll: loc,
-      // query: 'restaurant',
+      query: 'restaurant',
       section: 'food',
       limit: 30,
       venuePhotos: 1,
@@ -71,13 +94,12 @@ $(document).ready( function () {
       .then(function(data, status, xhr) {
         displayVenues(data, status, xhr);
       }, function(xhr, status, error) {
-
+        // TODO: Error handling here.
       });
   };
 
   var getLocation = function () {
     function revealPosition(position) {
-      var positionString = '';
       var latString = position.coords.latitude.toString().slice(0,6);
       var longString = position.coords.longitude.toString().slice(0,7);
       positionString = latString + ',' + longString;
@@ -99,5 +121,7 @@ $(document).ready( function () {
     requestLocation();
   };
 
+  var positionString = '';
+  var beenThere = [];
   getLocation();
 });
